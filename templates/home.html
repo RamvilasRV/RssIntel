@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Home page {% endblock %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<h1>Welcome to the RSS apps - {{username}}</h1>
+<form method="POST" action={% url 'logout' %}>
+	{% csrf_token %}
+	<button>Logout</button>
+</form>
+{% else %}
+<form method="POST" action={% url 'login' %}>
+	{% csrf_token %}
+	<button>
+		Login
+	</button>
+</form>
+{% endif %}
+
+{% endblock %}

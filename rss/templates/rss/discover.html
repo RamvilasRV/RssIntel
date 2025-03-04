@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>DISCOVER</h1>
+	<ul>
+        {% for rss in rsss %}
+        <form>
+            <li><p>TITLE : {{ rss.title }} </p>
+            <p>DESC : {{ rss.description }}</p></li>
+            <button type=submit>Subscribe</button>
+        </form>
+        {% empty %}
+            <li>No posts available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
