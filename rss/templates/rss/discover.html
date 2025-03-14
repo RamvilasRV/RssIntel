@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1>CUSTOM RSS</h1>
+    <form method="POST" action="{% url 'parse_url' %}">
+        {% csrf_token %}
+        <input type="url" name="url" placeholder="Enter the URL for the RSS" required>
+        <button type=submit>Add RSS</button>
+    </form>
+    <br>
+
 	<h1>DISCOVER</h1>
 	<ul>
         {% for rss in rsss %}

@@ -6,6 +6,7 @@
 	<title>{% block title %} RssIntel {% endblock %}</title>
 </head>
 <body>
+	{% include 'navbar.html' %}
 
 	{% if messages %}
 		{% for message in messages %}

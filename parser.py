@@ -43,13 +43,13 @@ for link in links:
 
 		### Using gettar()
 		feed_data = {
-		"title": getattr(feed, "title", "No title available"),
-		"subtitle": getattr(feed, "subtitle", "No subtitle available"),
-		"author": getattr(feed, "author", "No author available"),
-		"image": getattr(getattr(feed, "image", ""), "href", "No image available")
+		"title": getattr(feed, "title", None),
+		"subtitle": getattr(feed, "subtitle", None),
+		"author": getattr(feed, "author", None),
+		"image": getattr(getattr(feed, "image", None), "href", None)
 		}
 
-	print(feed_data)
+	print(feed_data, end="\n\n")
 		
 
 """title, subtitle, image, author """
