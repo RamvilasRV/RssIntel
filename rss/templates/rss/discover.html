@@ -12,7 +12,9 @@
 	<h1>DISCOVER</h1>
 	<ul>
         {% for rss in rsss %}
-        <form>
+        <form method="POST" action="{% url 'subscribe' %}">
+            {% csrf_token %} 
+            <input type="hidden" name="url" value="{{ rss.url }}">
             <li><p>TITLE : {{ rss.title }} </p>
             <p>DESC : {{ rss.description }}</p></li>
             <button type=submit>Subscribe</button>

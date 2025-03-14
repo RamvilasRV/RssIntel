@@ -27,7 +27,7 @@ class Subscriptions(models.Model):
 		unique_together = ('user', 'rss_feed')  # Keeping the pair unique so that a user cant subscribe to it more than once
 
 	def __str__(self):
-		return f"{self.user.username} subscribed to {self.RssFeed.title}"
+		return f"{self.user.username} subscribed to {self.rss_feed.title}"
 
 
 """
