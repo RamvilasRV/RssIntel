@@ -79,3 +79,27 @@ def subscribe_to_feed(request, url):
         messages.error(request, "You have already subscribed to this feed.")
 
     return None
+
+
+class SubscriptionsListView(ListView):
+    model = Subscriptions
+    template_name = "rss/subscription_list.html"
+    context_object_name = 'subscriptions'
+
+    def get_queryset(self):
+        return Subscriptions.objects.filter(user=self.request.user)
+
+def read_rss(request,id):
+    subscription = Subscriptions.objects.get(id=id, user=request.user)
+    url = Subscriptions.rss_feed.url
+    parse_rss(url)
+    return render(request, "read_rss.html")
+
+
+def parse_rss(url):
+    feed = fp.parse(url)
+
+    entries = feed.entiries
+
+    for i in entries:
+        ## build list of dictionaries

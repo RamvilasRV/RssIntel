@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class RssFeed(models.Model):
 	url = models.URLField(max_length=200)  # Stores the RSS Feed URL
-	title = models.CharField(max_length=255)  # Stores the title for the field (parsed)
+	title = models.CharField(max_length=255, blank=True, null=True)  # Stores the title for the field (parsed)
 	description = models.TextField(blank=True, null=True)  # Stores the description of the feed (parsed)
 	author = models.CharField(max_length=50,blank=True, null=True ) # Stores the author of the field
 	logo = models.URLField(max_length=200, blank=True, null=True)  # Optional: Store an image URL for the feed (parsed, user enterd)

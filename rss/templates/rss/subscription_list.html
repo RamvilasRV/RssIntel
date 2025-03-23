@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>This is the subscription list</h1>
+
+{% if subscriptions %}
+	{% for subscription in subscriptions %}
+	<li>
+		
+			<div>
+				<img src="{{subscription.rss_feed.logo}}" alt="LOGO"><br>
+				<a href="{% url "read-rss" subscription.id %}">{{subscription.rss_feed.title}} <br></a>
+				{{subscription.rss_feed.description}} <br>	
+				{{subscription.rss_feed.url}} <br>	
+			</div>
+		
+		<hr><br><br>
+	</li>
+	{% empty %}
+        <li>No subscriptions yet.</li>
+    {% endfor %}
+{% endif %}
+{% endblock %}

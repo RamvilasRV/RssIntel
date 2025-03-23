@@ -1,9 +1,14 @@
-def parse_feed(feed):
-	feed_data = {
-	"title": getattr(feed, "title", "No title available"),
-	"description": getattr(feed, "subtitle", "No subtitle available"),
-	"author": getattr(feed, "author", "No author available"),
-	"logo": getattr(getattr(feed, "image", ""), "href", "No image available")
-	}
+import feedparser as fp
 
-	return feed_data
+url = "https://every.to/superorganizers/feed.xml"
+
+feed = fp.parse(url)
+
+# for i in range(len(feed.entries)):
+# 	print((feed.entries[i].keys()))	
+
+# for i in feed.entries[0]:
+# 	print(i, type(i))
+
+for i in feed.entries[0]:
+	print(i, feed.entries[0][i])
