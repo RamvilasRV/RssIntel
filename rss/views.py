@@ -91,15 +91,47 @@ class SubscriptionsListView(ListView):
 
 def read_rss(request,id):
     subscription = Subscriptions.objects.get(id=id, user=request.user)
-    url = Subscriptions.rss_feed.url
-    parse_rss(url)
-    return render(request, "read_rss.html")
+    url = subscription.rss_feed.url
+    entries_data = parse_rss(url)
+    return render(request, "read_rss.html", {'entries_data': entries_data})
+
+
+def get_values(entry, to_search, name):
+    """gets all the enclosure links from the enclosure list"""
+    result_list = []
+    content_in_rss = (getattr(entry, to_search, []))
+    if len(content_in_rss)!=0:
+        for i in content_in_rss:
+            result_list.append(i[name])
+    return result_list
 
 
 def parse_rss(url):
     feed = fp.parse(url)
+    entries = feed.entries
+    entries_data = []
+    for entry in entries:
+        ## build list of dictionaries with following stuff
+        """
+        published
+        author 
+        publisher
+        summary
+        content
+        enclosures
+        link
+        """
+        entries_data.append( {
+        "title": getattr(entry, "title", None),
+        "published": getattr(entry, "published", None),
+        "author": getattr(entry, "author", None),
+        "publisher": getattr(entry, "publisher", None),
+        "summary": getattr(entry, "summary", None),
+        "contents": get_values(entry, "content", "value"),
+        "enclosures": get_values(entry, "enclosures", "href"),
+        "link": getattr(entry, "link", None)
+        })
+    print(entries_data)
 
-    entries = feed.entiries
+    return entries_data
 
-    for i in entries:
-        ## build list of dictionaries

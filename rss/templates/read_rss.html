@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h1>Hey there... read your stuff here..</h1>
+	{# {{ entries_data }} #}
+
+	{% for entry in entries_data %}
+	<div>
+		<h1>{{ entry.title }}</h1>
+		<small>{{ entry.published }}</small>
+		<p><i>{{ entry.summary|safe|truncatewords:10 }}</i></p>
+		{% for content in entry.contents %}
+			<p>{{ content | safe }}</p>
+		{% endfor %}
+		<p>{{ entry.enclosures }}</p>
+		<br>
+		<hr>
+	</div>
+	{% endfor %}
 {% endblock %}
